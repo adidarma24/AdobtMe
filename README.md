@@ -59,9 +59,7 @@ Aplikasi akan berjalan di `http://localhost:5173`
 
 ## 📸 Cuplikan Tampilan
 
-> (Tambahkan gambar cuplikan tampilan jika ada, contoh:)
-
-![Homepage Preview](./public/screenshot-home.png)
+![Homepage Preview](src/assets/redame.png)
 
 ## 🤝 Kontribusi
 
