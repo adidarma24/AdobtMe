@@ -42,13 +42,6 @@ const { selectedCategory, filteredPetImages, handleCategoryClick, adoptPet } =
           v-for="(category, index) in ['CATS', 'DOGS', 'ALL']"
           :key="index"
           @click="handleCategoryClick(category)"
-          :id="
-            category === 'CATS'
-              ? 'category-cats'
-              : category === 'DOGS'
-              ? 'category-dogs'
-              : null
-          "
           :class="[
             'cursor-pointer border px-6 py-2 rounded transition duration-300 ease-in-out font-medium font-Inter text-sm md:text-base',
             selectedCategory === category
