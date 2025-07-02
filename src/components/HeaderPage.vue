@@ -92,7 +92,40 @@
             :src="searchGlass"
             alt="search"
             class="cursor-pointer active:scale-90 transition duration-300 ease-in-out hidden lg:block"
+            @click="toggleSearchModal"
           />
+          <!-- Search Modal -->
+          <transition name="fade">
+            <div
+              v-if="showSearchModal"
+              class="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+            >
+              <div
+                class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative"
+              >
+                <button
+                  @click="toggleSearchModal"
+                  class="absolute top-2 right-2 text-gray-400 hover:text-gray-700 text-xl"
+                >
+                  &times;
+                </button>
+                <input
+                  v-model="searchQuery"
+                  @keyup.enter="submitSearch"
+                  type="text"
+                  placeholder="Search pet name or type..."
+                  class="w-full border border-paleBlue rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-paleBlue"
+                  autofocus
+                />
+                <button
+                  @click="submitSearch"
+                  class="mt-4 w-full bg-paleBlue text-white py-2 rounded hover:bg-slate-500 transition"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+          </transition>
 
           <a
             href="#"
@@ -170,6 +203,24 @@ import logo from "../assets/paw.svg";
 const isMobileMenuOpen = ref(false);
 const showDropdownMenu = ref(false);
 const isNavbarScrolled = ref(false);
+const showSearchModal = ref(false);
+const searchQuery = ref("");
+// Toggle search modal
+const toggleSearchModal = () => {
+  showSearchModal.value = !showSearchModal.value;
+  if (!showSearchModal.value) {
+    searchQuery.value = "";
+  }
+};
+
+// Submit search (scroll ke PetList dan trigger filter via event)
+const submitSearch = () => {
+  toggleSearchModal();
+  // Kirim event custom ke window, nanti ditangkap di App.vue
+  window.dispatchEvent(
+    new CustomEvent("pet-search", { detail: searchQuery.value })
+  );
+};
 
 const toggleMobileMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
